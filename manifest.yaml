@@ -1,14 +1,17 @@
 name: rtk
-version: 0.1.0
+version: 0.2.0
 author: rubin-johnson
-description: RTK (Rust Token Killer) — CLI proxy that compresses command outputs via a Claude Code PreToolUse hook
-notes: "Requires bin/rtk binary (not included). See README.md for build/download instructions."
+description: RTK (Rust Token Killer) — CLI proxy that compresses command outputs via
+  a Claude Code PreToolUse hook
+setup:
+- mkdir -p "$HOME/.claude/bin"
+- OS=$(uname -s | tr '[:upper:]' '[:lower:]'); ARCH=$(uname -m | sed 's/arm64/aarch64/');
+  curl -sSfL "https://github.com/rubin-johnson/rtk/releases/latest/download/rtk-${OS}-${ARCH}"
+  -o "$HOME/.claude/bin/rtk" && chmod +x "$HOME/.claude/bin/rtk"
 targets:
-  - path: bin/rtk
-    dest: bin/rtk
-  - path: hooks/rtk-rewrite.sh
-    dest: hooks/rtk-rewrite.sh
-  - path: hooks/rtk-wrapper.sh
-    dest: hooks/rtk-wrapper.sh
-  - path: settings.json
-    dest: settings.json
+- path: hooks/rtk-rewrite.sh
+  dest: hooks/rtk-rewrite.sh
+- path: hooks/rtk-wrapper.sh
+  dest: hooks/rtk-wrapper.sh
+- path: settings.json
+  dest: settings.json
